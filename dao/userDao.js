@@ -1,5 +1,6 @@
 var express = require('express');
 const defaultDao = require('../dao/defaultDao');
+const md5 = require('md5');
 
 let getCredentials = function(req) {
   const credPromise = new Promise((reslv, rejct) => {
@@ -8,9 +9,9 @@ let getCredentials = function(req) {
     console.log("body:" + req.body.email);
     connection.connect();
     let sql = "SELECT user_id, username, email from users where BINARY email = ? and BINARY password = ?";
-  
-    connection.query(sql, [req.body.email, req.body.password], (err, rows, fields) => {
-      console.log(sql, [req.body.email, req.body.password]);
+    let password = md5(req.body.password);
+    connection.query(sql, [req.body.email, password], (err, rows, fields) => {
+      console.log(sql, [req.body.email, password]);
       if (err) {
         console.log("Error encountered!!!!");
         rejct(err);

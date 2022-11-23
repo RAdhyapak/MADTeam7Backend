@@ -4,7 +4,7 @@ var mysql = require('mysql');
 var userService = require('./../services/userService');
 
 /* Login */
-router.get('/login', function(req, res, next) {
+router.post('/login', function(req, res, next) {
   const p = userService.validateLogin(req);
   p.then((user) => {
     req.session.user = user;
@@ -15,7 +15,7 @@ router.get('/login', function(req, res, next) {
 });
 
 /* Logout */
-router.get('/logout', function(req, res, next) {
+router.post('/logout', function(req, res, next) {
   if (req.session.user) {
     req.session.destroy();
     res.redirect('/');
