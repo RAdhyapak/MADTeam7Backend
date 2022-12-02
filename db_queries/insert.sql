@@ -1,5 +1,4 @@
-INSERT INTO `users` (`user_id`, `username`, `email`, `password`) VALUES (NULL, 'arohan', 'radhyapak2@student.gsu.edu', '4e8e0c47b55c9b6157cef797077b279f');
-
+INSERT INTO `users` (`user_id`, `username`, `email`, `password`) VALUES (1, 'arohan', 'testuser@gsu.edu', 'e99a18c428cb38d5f260853678922e03');
 
 INSERT INTO `platforms` (`platform_id`, `platform_name`, `platform_description`) VALUES (1, 'Netflix', 'Netflix is an OTT media platform'), (2, 'Goodreads', 'Goodreads is a database of books, annotations, quotes, and reviews');
 
