@@ -13,11 +13,11 @@ let getUserLists = function(user) {
                 console.log("Error enouncter when getting MediaLists for user!!!!");
                 reject(err);
             }
-            
+
             if (rows) {
             rows.forEach(mlist => {
-                let medialist = {'id': mlist.medialist_id, 
-                'title': mlist.medialist_title, 
+                let medialist = {'id': mlist.medialist_id,
+                'title': mlist.medialist_title,
                 'upvotes': mlist.upvotes
                 }
                 medialists.push(medialist);
@@ -43,7 +43,7 @@ let getMediaList = function(mediaListId) {
                 console.log("Error enouncter when getting MediaList!!!!");
                 reject(err);
             }
-        
+
             if (rows) {
                 mediaList.id = rows[0].medialist_id;
                 mediaList.title = rows[0].medialist_title;
