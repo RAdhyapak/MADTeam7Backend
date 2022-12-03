@@ -23,7 +23,20 @@ let getUserLists = function(user) {
   });
 }
 
+let createMediaList = function(req, user) {
+  return new Promise((resolve, reject) => {
+    const listPromise = medialistDao.createMediaList(req, user);
+    listPromise.then((mediaListId) => {
+      resolve(mediaListId);
+    }).catch((err) => {
+      throw err;
+      // reject(err);
+    });
+  });
+}
+
 module.exports= {
     getMediaList: getMediaList,
-    getUserLists: getUserLists
+    getUserLists: getUserLists,
+    createMediaList: createMediaList
 }

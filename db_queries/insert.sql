@@ -8,3 +8,7 @@ INSERT INTO `medialists` (`medialist_id`, `user_id`, `medialist_title`, `upvotes
 INSERT INTO `mediaitems` (`mediaitem_id`, `mediaitem_title`, `platform_id`, `category_id`) VALUES (1, 'Kane and Abel', '2', '3'), (2, 'The Prodigal Daughter', '2', '3'), (3, 'Powershift', '2', '3');
 INSERT INTO `medialists_mediaitems` (`medialist_id`, `mediaitem_id`) VALUES ('1', '1'), ('1', '2'), ('1', '3'), ('2', '4');
 INSERT INTO `mediaitems` (`mediaitem_id`, `mediaitem_title`, `platform_id`, `category_id`) VALUES (4, 'Avengers: Endgame', '1', '1'), (5, 'The Dark Knight', '1', '1');
+
+
+INSERT INTO `medialists` (`medialist_id`, `user_id`, `medialist_title`, `upvotes`) VALUES (3, '1', 'My Media Recommendations', '121');
+INSERT INTO `medialists_mediaitems` (`medialist_id`, `mediaitem_id`) VALUES ('3', '1'), ('3', '2'), ('3', '5');

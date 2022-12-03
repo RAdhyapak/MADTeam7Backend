@@ -40,4 +40,21 @@ router.get('/:id', (req, res) => {
     }
 });
 
+router.post('/', (req, res) => {
+  if (req.session.user) {
+    let currentUser = req.session.user;
+    const p = mlService.createMediaList(req, currentUser);
+    p.then((medialistId) => {
+      let medialist = {id: medialistId};
+      console.log("Successfully created new media list" + medialist);
+      res.status(200).send(medialist);
+    }).catch((err) => {
+      throw(err);
+      // res.status(500).send("Internal Server Error");
+    });
+  } else {
+    res.status(401).send({error:"UNAUTHORIZED"});
+  }
+});
+
 module.exports = router;

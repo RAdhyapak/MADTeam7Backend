@@ -14,7 +14,11 @@ var app = express();
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  rolling: true,
+  cookie: { 
+    maxAge: 1*60*60*1000
+  }
 }))
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,7 +31,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 app.use('/medialists', medialistsRouter);
 app.use('/mediaitems', mediaitemsRouter);
 

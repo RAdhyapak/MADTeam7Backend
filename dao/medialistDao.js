@@ -44,7 +44,7 @@ let getMediaList = function(mediaListId) {
                 reject(err);
             }
 
-            if (rows) {
+            if (rows && rows.length > 0) {
                 mediaList.id = rows[0].medialist_id;
                 mediaList.title = rows[0].medialist_title;
                 mediaList.upvotes = rows[0].upvotes;
@@ -74,9 +74,60 @@ let getMediaList = function(mediaListId) {
 
 // GET RECOMMENDATIONS - BROWSE
 
-let createMedialist = function(req, user) { }
+let createMediaList = function(req, user) {
+    return new Promise((resolve, reject) => {
+        const connection = defaultDao.getDatabaseConnection();
+        let sql = "INSERT INTO medialists values (NULL, ?, ?, ?)";
+        connection.query(sql, [user.id, req.body.title, 0], (err, result) => {
+            if (err) {
+                console.log("Error enouncter when creating MediaList!!!!");
+                reject(err);
+            }
+
+            if (result) {
+                let mediaListId = result.insertId;
+                console.log("NEW media list created as:" + mediaListId);
+                const mediaItemPromise = createMediaListItem(connection, req, mediaListId);
+                mediaItemPromise.then((mlId) => {
+                    resolve(mediaListId);
+                }).finally(() => {  
+                    console.log("Closing connection.s.");
+                    connection.end();
+                })
+            } else {
+                console.log("Closing connection...");
+                connection.end();
+            }
+        });
+    });
+}
+
+let createMediaListItem = function(connection, req, mediaListId) {
+    return new Promise((resolve, reject) => {
+        let sql = "INSERT into medialists_mediaitems (medialist_id, mediaitem_id) VALUES ?";
+        var values = [];
+        if (req.body.mediaItems) {
+            req.body.mediaItems.forEach((mediaItem) => {
+                values.push([mediaListId, mediaItem.id]);
+            });
+            console.log("Inserting values:" + values);
+            connection.query(sql, [values], (err, result) => {
+                if (err) {
+                    console.log("Error enouncter when creating MediaList!!!!");
+                    reject(err);
+                }
+
+                if (result) {
+                    console.log(JSON.stringify(result));
+                    resolve(mediaListId);
+                }
+            });
+        }
+    });
+}
 
 module.exports = {
     getUserLists: getUserLists,
-    getMediaList: getMediaList
+    getMediaList: getMediaList,
+    createMediaList: createMediaList
 }
