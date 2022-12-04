@@ -24,6 +24,16 @@ router.post('/logout', function(req, res, next) {
   }
 });
 
+/* User */
+router.get('/', function (req, res) {
+  if (req.session.user) {
+    const currentUser = req.session.user;
+    res.status(200).send(currentUser);
+  } else {
+    res.status(401).send({error:"UNAUTHORIZED"});
+  }
+});
+
 
 // TODO: Refactor
 // router.post('/', (req, res, next) => {

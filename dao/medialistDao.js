@@ -70,6 +70,38 @@ let getMediaList = function(mediaListId) {
     return mediaListPromise;
 }
 
+let getMediaListByCategory = function(categoryId, user) {
+    const mediaListPromise = new Promise((resolve, reject) => {
+        const connection = defaultDao.getDatabaseConnection();
+        let sql = "SELECT distinct(medialist_id), medialist_title, username, upvotes from medialists natural join medialists_mediaitems natural join mediaitems natural join users where category_id = ? and user_id <> ?";
+        let mediaLists = [];
+        connection.query(sql, [categoryId, user.id], (err, rows, fields) => {
+            if (err) {
+                console.log("Error enouncter when getting MediaList!!!!");
+                reject(err);
+            }
+
+            if (rows && rows.length > 0) {
+                rows.forEach(row => {
+                    let mediaList = {};
+                    mediaList.id = row.medialist_id;
+                    mediaList.title = row.medialist_title;
+                    mediaList.upvotes = row.upvotes;
+                    mediaList.username = row.username;
+                    mediaLists.push(mediaList);
+                });
+                resolve(mediaLists);
+                console.log("Closing connection...");
+                connection.end();
+            } else {
+                console.log("Closing connection...");
+                connection.end();
+            }
+        });
+    });
+    return mediaListPromise;
+}
+
 // CREATE MediaList
 
 // GET RECOMMENDATIONS - BROWSE
@@ -129,5 +161,6 @@ let createMediaListItem = function(connection, req, mediaListId) {
 module.exports = {
     getUserLists: getUserLists,
     getMediaList: getMediaList,
-    createMediaList: createMediaList
+    createMediaList: createMediaList,
+    getMediaListByCategory: getMediaListByCategory
 }

@@ -1,11 +1,12 @@
 var express = require('express')
 var router = express.Router();
 var mlService = require('./../services/medialistService');
+var mlDao = require('./../dao/medialistDao');
 
 router.get('/', function(req, res, next) {
     if (req.session.user) {
       if (req.query.categoryId) {
-        const p = mlService.searchByCategory(req.query.categoryId, req.session.user);
+        const p = mlDao.getMediaListByCategory(req.query.categoryId, req.session.user);
         p.then((medialists) => {
           res.status(200).send(medialists);
         }).catch((err) => {
