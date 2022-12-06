@@ -17,6 +17,7 @@ let getMediaItemsByCategory = function(categoryId) {
                     let mediaItem = {
                         'id': mitems.mediaitem_id,
                         'title': mitems.mediaitem_title,
+                        'img': mitems.img,
                         'category': {'id':mitems.category_id, 'name': mitems.category_name},
                         'platform': {'id': mitems.platform_id, 'name': mitems.platform_name}
                     }
@@ -48,6 +49,7 @@ let getMediaItemsByPlatform = function(platformId) {
                     let mediaItem = {
                         'id': mitems.mediaitem_id,
                         'title': mitems.mediaitem_title,
+                        'img': mitems.img,
                         'category': {'id':mitems.category_id, 'name': mitems.category_name},
                         'platform': {'id': mitems.platform_id, 'name': mitems.platform_name}
                     }
@@ -79,6 +81,7 @@ let getMediaItems = function() {
                     let mediaItem = {
                         'id': mitems.mediaitem_id,
                         'title': mitems.mediaitem_title,
+                        'img': mitems.img,
                         'category': {'id':mitems.category_id, 'name': mitems.category_name},
                         'platform': {'id': mitems.platform_id, 'name': mitems.platform_name}
                     }

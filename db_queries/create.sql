@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS user_interests(
 );
 
 CREATE TABLE IF NOT EXISTS user_favourites(
+    favourite_id INT(11) PRIMARY KEY AUTO_INCREMENT,
     user_id INT(11) NOT NULL REFERENCES users(user_id),
-    medialist_id INT(15) NOT NULL REFERENCES medialists(medialist_id),
-    PRIMARY KEY (user_id, medialist_id)
+    medialist_id INT(15) NOT NULL REFERENCES medialists(medialist_id)
 );

@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var medialistsRouter = require('./routes/medialists');
 var mediaitemsRouter = require('./routes/mediaitems');
+var favoritesRouter = require('./routes/favorites');
 
 var app = express();
 app.use(session({
@@ -34,6 +35,7 @@ app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/medialists', medialistsRouter);
 app.use('/mediaitems', mediaitemsRouter);
+app.use('/favorites', favoritesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

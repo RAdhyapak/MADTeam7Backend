@@ -6,7 +6,7 @@ let getUserLists = function(user) {
         console.log("Inside getUserLists");
         const connection = defaultDao.getDatabaseConnection();
         let medialists = [];
-        let sql = "select * from medialists where user_id = ?";
+        let sql = "select medialist_id, medialist_title, upvotes, username from medialists natural join users where user_id = ?";
         console.log("userid " + user.id);
         connection.query(sql, [user.id], (err, rows, fields) => {
             if (err) {
@@ -18,7 +18,8 @@ let getUserLists = function(user) {
             rows.forEach(mlist => {
                 let medialist = {'id': mlist.medialist_id,
                 'title': mlist.medialist_title,
-                'upvotes': mlist.upvotes
+                'upvotes': mlist.upvotes,
+                'username': mlist.username
                 }
                 medialists.push(medialist);
             });
@@ -53,6 +54,7 @@ let getMediaList = function(mediaListId) {
                     let mediaItem = {
                         'id': ml.mediaitem_id,
                         'title': ml.mediaitem_title,
+                        'img': ml.img,
                         'category': {'id':ml.category_id, 'name': ml.category_name},
                         'platform': {'id': ml.platform_id, 'name': ml.platform_name}
                     };

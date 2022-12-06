@@ -11,6 +11,7 @@ let getFavorites = function (mediaListId, user) {
   });
 }
 
+
 module.exports = {
   getFavorites: getFavorites
 }

@@ -18,7 +18,7 @@ router.post('/login', function(req, res, next) {
 router.post('/logout', function(req, res, next) {
   if (req.session.user) {
     req.session.destroy();
-    res.redirect('/');
+    res.status(200).send();
   } else {
     res.status(401).send({error:"UNAUTHORIZED"});
   }
